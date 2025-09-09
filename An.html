@@ -183,7 +183,19 @@
   const overlay = $('#overlay');
   const typer = $('#typer');
 
-  const LETTER_TEXT = "Gửi em,\n\nTrên bầu trời đêm có mưa tim và những lời yêu rơi xuống. Mỗi nhịp rơi là một lần anh nghĩ về em. Nếu em đồng ý, mình cùng viết tiếp câu chuyện thật đẹp nhé.\n\nTừ lúc gặp em, đời anh vui nhiều lắm.\nNgày em đến, nắng cũng hiền hơn.\nCó em bên cạnh, mệt mỏi tan dần,\nchỉ còn lại yêu thương và nụ cười.";
+  // ✅ Dùng template string để không lỗi xuống dòng
+  const LETTER_TEXT = `Gửi em,
+
+Anh viết cho em những dòng này bằng tất cả trái tim mình.
+Từ khi có em, cuộc sống của anh như được thắp sáng thêm một ngọn lửa dịu dàng, ấm áp. Mỗi nụ cười, mỗi ánh mắt của em đều khiến anh cảm thấy thế giới này trở nên đẹp đẽ và đáng trân trọng hơn bao giờ hết.
+Em chính là niềm tin, là động lực để anh cố gắng mỗi ngày. Dù có mệt mỏi hay khó khăn, chỉ cần nghĩ đến em thôi, anh lại thấy lòng mình nhẹ nhõm và đầy nghị lực. Anh yêu cách em quan tâm, yêu sự dịu dàng xen lẫn mạnh mẽ nơi em, và yêu cả những điều nhỏ bé tưởng chừng vô nghĩa nhưng lại khiến trái tim anh rung động mãi không thôi.
+Anh muốn nắm tay em đi hết chặng đường dài phía trước, cùng nhau sẻ chia niềm vui, cùng nhau vượt qua những nỗi buồn. Em là tất cả, là một phần không thể thiếu trong cuộc đời anh.
+Anh yêu em, không chỉ bởi em là em, mà còn bởi khi ở bên em, anh được là chính mình, trọn vẹn và hạnh phúc.
+
+Em à, tình yêu với anh không phải là những lời hứa hoa mỹ, mà là sự hiện diện thật lòng trong từng khoảnh khắc. Anh muốn cùng em thức dậy vào những buổi sáng yên bình, cùng em đi qua những ngày nắng gắt hay mưa rào. Anh muốn trở thành bờ vai vững chắc để em tựa vào, là nơi em tìm thấy bình yên sau những chông chênh của cuộc sống.
+Em giống như bản nhạc dịu êm vang trong tâm hồn anh, khiến mọi muộn phiền dường như tan biến. Chỉ cần có em bên cạnh, anh đã thấy mình đủ đầy và may mắn hơn cả ngàn người. Anh tin rằng tình yêu của chúng ta không chỉ là một chặng đường ngắn, mà sẽ kéo dài đến hết những tháng ngày sau này, nơi mà mái tóc chúng ta dần điểm bạc nhưng bàn tay vẫn không rời nhau.
+
+Anh yêu em không phải vì em hoàn hảo, mà vì em là chính em với những điều giản dị, ngọt ngào, và cả những vụng về khiến anh thương vô cùng. Với anh, em mãi mãi là điều đẹp đẽ nhất trong cuộc đời này.`;
 
   function switchToStage2(){
     stage = 2; letterWrap.style.display='block'; cta.style.display='flex';
@@ -218,7 +230,12 @@
 
   // ===== Main loop =====
   function loop(now){
-    if(stage===1) stage1Frame(now); else { drawBackground(); particles.forEach(p=>{p.draw(); p.update();}); sparks = sparks.filter(s=>s.alive()); sparks.forEach(s=>{s.step(); s.draw();}); }
+    if(stage===1) stage1Frame(now);
+    else {
+      drawBackground();
+      particles.forEach(p=>{p.draw(); p.update();});
+      sparks = sparks.filter(s=>s.alive()); sparks.forEach(s=>{s.step(); s.draw();});
+    }
     requestAnimationFrame(loop);
   }
   requestAnimationFrame(loop);
